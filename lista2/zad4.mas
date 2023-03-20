@@ -1,0 +1,70 @@
+﻿		Clear
+                Input
+                Skipcond	800			/if dec < 0, halt
+                Halt
+                Store 		dec
+                
+loop, 		Load 		dec
+                Skipcond 	800 			/while dec>0          
+                Jump 		endloop
+                
+                Load 		zero			/clear the divisor 
+                Store 		divisor
+                
+modulo,		Load		divisor			/get divisor and remainder
+                Add 		one
+                Store 		divisor
+                Load 		dec
+		Subt 		sixteen
+		Store 		dec
+                Skipcond 	000
+                Jump 		modulo
+                
+                Load 		dec
+                Add 		sixteen		
+                
+                Subt		ten			/to ascii code 
+                Skipcond 	000			/if not number subt number Offset
+              	Add 		offsetChar
+                Skipcond 	000			/if not number add char offset
+                Subt 		offsetNum
+               	Add		offsetNum	
+                Add 		ten               
+                StoreI 		str_curr		/store dec%16 under adress str_curr
+                
+                Load 		divisor			/replace dec by dec/16
+                Subt 		one
+                Store 		dec
+                Load 		str_curr		/increment str_curr pointer
+                Add 		one				
+                Store 		str_curr
+                Jump  		loop 
+                
+endloop,        Load 		str_curr		/set pointer str_curr to the last char
+                Subt		one
+                Store 		str_curr
+                
+printing,	Load 		str_curr				
+		Subt		str_ptr
+                Add 		one
+                Skipcond 	800			/while str_curr >= str_ptr
+                Halt
+                LoadI 		str_curr		/print char
+                Output
+                Load 		str_curr		/decrement str_curr
+                Subt 		one
+                Store 		str_curr
+                Jump 		printing
+                
+                                          
+dec, DEC 0
+divisor, DEC 0
+str_ptr, HEX 40
+str_curr, HEX 40
+
+zero, DEC 0
+one, DEC 1
+ten, DEC 10
+sixteen, dec 16
+offsetNum, dec 48
+offsetChar, dec 55

@@ -1,0 +1,22 @@
+﻿ 	CLEAR
+        INPUT
+        STORE 		A
+        INPUT
+        STORE 		B
+        Skipcond	800
+        HALT
+
+loop,	LOAD 		A
+	SUBT		B
+        STORE 		A 
+	Skipcond 	000
+        JUMP 		loop
+        JUMP 		end    
+        
+end, 	LOAD 		A
+	ADD 		B
+        OUTPUT
+        HALT
+        
+A, DEC 0
+B, DEC 0
